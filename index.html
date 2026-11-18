@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eff3ed">
+  <title>RiverWindow · Discharge review desk</title>
+</head>
+<body>
+  <header class="bar"><a href="./" class="brand"><span aria-hidden="true">≈</span> RiverWindow</a><small>STABLE STUDIONET <b>61999</b></small></header>
+  <main>
+    <section class="hero">
+      <div class="hero-text"><p class="kicker">HYDROLOGY FIELD PLANNING</p><h1>One rule.<br>Shared evidence.</h1>
+      <p>Agree on a discharge threshold before reviewing a sampling window. GenLayer validators independently read USGS records and preserve the values that triggered a second review.</p></div>
+      <div class="motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </section>
+    <section class="grid" aria-label="Review workspace">
+      <article><p class="kicker">01 / CONFIGURATION</p><h2>Open a window</h2>
+        <label>Contract address<input id="contract" autocomplete="off" placeholder="0x…"></label>
+        <div class="row wallet"><label>Injected wallet<select id="wallet"></select></label><button id="connect">Connect</button></div>
+        <p id="account" class="subtle">Public chain reads work without a wallet.</p>
+        <form id="register">
+          <label>Window name<input id="slug" required pattern="[a-z0-9\\-]{3,40}" placeholder="july-sampling"></label>
+          <label>USGS station<select id="station"><option value="01646500">Potomac River · Little Falls</option><option value="01491000">Choptank River · Greensboro</option><option value="01638500">Potomac River · Point of Rocks</option></select></label>
+          <div class="row"><label>First date<input type="date" id="date" required></label><label>Threshold (ft³/s)<input id="threshold" type="number" min="1" max="1000000" step="1" required placeholder="10000"></label></div>
+          <label>Reviewer wallet<input id="reviewer" required pattern="0x[0-9a-fA-F]{40}" placeholder="0x…"></label>
+          <button>Register three-day window</button>
+        </form>
+        <details><summary>Deploy an instance</summary><p>Deploy the bundled contract using the connected wallet on Stable Studionet.</p><button id="deploy">Deploy contract</button></details>
+      </article>
+      <article><p class="kicker">02 / FINALIZED RECORD</p><h2>Review a window</h2>
+        <form id="lookup"><label>Window reference<input id="key" required placeholder="0x…/july-sampling"></label><button class="secondary">Read finalized state</button></form>
+        <section id="record" hidden><h3 id="state"></h3><p id="rule"></p><div id="values" class="values"></div><a id="source" target="_blank" rel="noopener">USGS source ↗</a><p id="review"></p></section>
+        <div id="actions" hidden><button id="evaluate">Evaluate USGS records</button>
+        <form id="ack" hidden><label>Second reviewer note<textarea id="note" required minlength="10" maxlength="300"></textarea></label><button>Acknowledge review</button></form></div>
+      </article>
+    </section>
+    <div class="activity" role="status" aria-live="polite"><span id="status">Ready</span> <a id="transaction" target="_blank" rel="noopener" hidden>View transaction ↗</a></div>
+    <footer>Daily mean discharge · Approved USGS observations only · For planning review</footer>
+  </main>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
