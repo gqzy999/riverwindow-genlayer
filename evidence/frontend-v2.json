@@ -1,0 +1,29 @@
+{
+  "chainId": 61999,
+  "address": "0xB9C420b1808eb756E4794438247FBa036fa576F2",
+  "reference": "0x0570cf64e4ab94e0d49a363c3e639d0bb0ae6fa4/frontend-responsibility",
+  "surface": "Production bundle with EIP-1193 test adapter signing actual Studionet transactions",
+  "steps": [
+    {
+      "hash": "0x1c2de2bb9b493f8e69be3bd6ec79b8ee11941ba48b64ce8f2d8396c06235df70",
+      "signer": "0x0570cF64e4AB94E0d49a363c3E639D0Bb0Ae6FA4",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "AWAITING_DATA"
+    },
+    {
+      "hash": "0x445fe86b704804c108f2d500c2a76a4a45126df87659064590d7fc817965cc6f",
+      "signer": "0x0570cF64e4AB94E0d49a363c3E639D0Bb0Ae6FA4",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "REVIEW_REQUIRED"
+    },
+    {
+      "hash": "0x6d12d8b9f92f8897fa3b22ee52460a3f5d2298c61c3c2372fd61b11091272f68",
+      "signer": "0x2e2fB8488b1c5B3051518225244e830a4D13D3F7",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "ACKNOWLEDGED"
+    }
+  ]
+}

@@ -9,9 +9,9 @@
     "test": "python3 -m unittest discover -s tests",
     "build": "vite build --base=./",
     "deploy": "node scripts/deploy.mjs",
-    "dev": "vite"
+    "dev": "vite",
+    "acceptance:v2": "node scripts/acceptance-v2.mjs"
   },
-  "license": "ISC",
   "type": "module",
   "dependencies": {
     "genlayer-js": "1.1.8"

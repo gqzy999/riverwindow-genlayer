@@ -40,7 +40,7 @@ For a reproducible data window, use USGS 01646500 starting 2025-07-01 and a 10,0
 
 ## Finalized example
 
-The [published USGS review window](https://gqzy999.github.io/riverwindow-genlayer/?key=0xdb29f70fb341141be79ea93c24ee3e8298706852%2Fusgs-july-2025) can be opened without a wallet. Select **Read finalized state** to load the three observations and the reviewer note. The [acceptance record](evidence/studionet.json) contains deployment and transaction hashes plus the state read after each finalized write. Two dedicated Studionet test accounts signed the flow.
+The [published USGS review window](https://gqzy999.github.io/riverwindow-genlayer/?contract=0x27eBB0834f1c645BB3a1333B09602405d1d54389&key=0xdb29f70fb341141be79ea93c24ee3e8298706852%2Fusgs-july-2025) can be opened without a wallet. Select **Read finalized state** to load the three observations and the reviewer note. The [acceptance record](evidence/studionet.json) contains deployment and transaction hashes plus the state read after each finalized write. Two dedicated Studionet test accounts signed the flow.
 
 The [front-end transaction record](evidence/frontend.json) captures a separate production-bundle run through EIP-1193 discovery, network selection, signing, finality polling, and readback. The DOM runner uses two test signers and real Studionet transactions. A native extension signing run could not start in the test environment. The published site was checked in Chrome for unauthenticated finalized readback.
 
@@ -49,3 +49,15 @@ The [front-end transaction record](evidence/frontend.json) captures a separate p
 Choose **Compare published examples** to see the same three approved USGS daily means under two registered thresholds. The 10,000 ft³/s rule triggered a review and was acknowledged. The 12,000 ft³/s rule was met on one day, so it did not trigger review. Both columns read the deployed contract's latest finalized state. [Second-window evidence](evidence/comparison.json)
 
 Open a window and use **Check registration timing** to verify a registration transaction hash. The app checks successful finality, the sender, the contract and all registered values. It compares the RPC submission timestamp with midnight UTC at the start of the first observation date, a conservative cutoff for the supported gauges in the eastern United States. The timestamp describes submission. Registration timing is informational and retrospective windows remain valid. Both comparison examples are retrospective.
+
+## Responsibility trail
+
+The v2 contract retains the owner's wallet as the registration actor and records the separate wallet that initiated consensus evaluation and the reviewer that acknowledged the result. The workbench labels approved observations, identifies consecutive threshold hits, and displays each actor separately. Archive links identify the contract and record key. The browser stores references and receipt links for records opened locally. The outcomes are loaded from finalized chain state.
+
+Legacy examples remain accessible through the archive. The older contract did not expose the evaluation and acknowledgement actors in its record schema. The workbench uses receipt links for independently verifiable historical actions when the published evidence contains them.
+
+For a fresh v2 validation run, provide two authorized Studionet test signers through the environment and run `npm run acceptance:v2`. The runner saves hashes, finality, execution outcomes and readbacks to `.private/v2-run.json` by default. Set `STUDIO_EVIDENCE_PATH` to use a different destination. Signer environment names are `STUDIO_OWNER_KEY` and `STUDIO_REVIEWER_KEY`.
+
+[Current v2 deployment](https://explorer-studio.genlayer.com/address/0xB9C420b1808eb756E4794438247FBa036fa576F2) · [V2 acceptance receipts and readbacks](evidence/v2.json) · [Production bundle transaction evidence](evidence/frontend-v2.json)
+
+The production bundle acceptance used an EIP-1193 test adapter and temporary zero-value Studionet signers. The non-assigned wallet rejection is independently recorded in the contract acceptance evidence. Inconsistent validator responses were exercised with the local contract test host.

@@ -86,7 +86,8 @@ class RiverWindow(gl.Contract):
             raise gl.vm.UserError("WINDOW_EXISTS")
         record = dict(key=key, owner=owner, station=station, days=days,
                       threshold=int(threshold), source=source_url(station, days),
-                      status="AWAITING_DATA", readings=None, reviewer=reviewer, note=None)
+                      status="AWAITING_DATA", readings=None, reviewer=reviewer, note=None,
+                      evaluated_by=None, acknowledged_by=None)
         self.records[key] = json.dumps(record)
 
     @gl.public.write
@@ -115,6 +116,7 @@ class RiverWindow(gl.Contract):
         if record["status"] == "AWAITING_DATA":
             raise gl.vm.UserError("APPROVED_DATA_INCOMPLETE")
         record["readings"] = values
+        record["evaluated_by"] = str(gl.message.sender_address).lower()
         self.records[key] = json.dumps(record)
 
     @gl.public.write
@@ -125,5 +127,5 @@ class RiverWindow(gl.Contract):
             raise gl.vm.UserError("NO_REVIEW_REQUIRED")
         if reviewer != record["reviewer"] or not 10 <= len(note.strip()) <= 300:
             raise gl.vm.UserError("INDEPENDENT_REVIEW_NOTE_REQUIRED")
-        record.update(status="ACKNOWLEDGED", note=note.strip())
+        record.update(status="ACKNOWLEDGED", note=note.strip(), acknowledged_by=reviewer)
         self.records[key] = json.dumps(record)

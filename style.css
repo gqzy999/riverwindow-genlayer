@@ -51,3 +51,16 @@ footer{padding:1rem 0}
 .comparison td,.comparison th{padding:.6rem .75rem;border-bottom:1px solid var(--line)}
 .comparison thead th{background:#e0eadf}
 .progress{display:grid;gap:.3rem;padding-left:1.35rem;font-size:.88rem;color:#375949}
+
+:root{background:#edf4f8;color:#123043;--ink:#123043;--green:#135971;--line:#c2d4df}
+.hero{background:#122d45;color:#edf9fc}.hero .kicker{color:#a9e3e8}.motif i{border-color:#73d6de}
+.station-strip{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin:0 0 1rem;overflow-wrap:anywhere}
+.values .qualifies{border-bottom:3px solid #208698}
+.roles{font-size:.85rem}.roles div{display:grid;grid-template-columns:minmax(100px,1fr) 2fr;gap:.5rem;padding:.45rem 0;border-bottom:1px solid var(--line)}.roles dd{margin:0;overflow-wrap:anywhere}.roles dt{font-weight:700}
+.archive{display:grid;gap:.4rem;overflow-wrap:anywhere}
+
+.values div.flow-meter{position:relative;margin:.45rem 0 0;padding:0;height:6px;background:#cadce6;border-radius:1px}
+.flow-meter::before,.flow-meter::after{content:"";position:absolute;top:0;height:100%}
+.flow-meter::before{left:0;width:var(--flow);background:#4689a0}
+.flow-meter::after{left:clamp(0px,var(--threshold),calc(100% - 2px));width:2px;background:#112c44}
+.activity{position:sticky;top:0;z-index:2;margin:0 0 1rem;background:#dcecf4}

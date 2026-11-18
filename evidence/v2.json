@@ -1,0 +1,262 @@
+{
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "sourceSha256": "8b72fd54c8aee4de7ee27a76561cb2abb02351935cf41c0a07a4e9b339e5accb",
+  "signers": [
+    "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+    "0x6b165c45978089a991578b8dfd844cbcd7aab74f"
+  ],
+  "steps": {
+    "deployment": {
+      "method": "deploy",
+      "actor": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+      "args": [],
+      "hash": "0x802dedf1a752abe010bf5eafaa74ce4b7351a3fd6fa79c6b125be256f50ea811",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "address": "0xB9C420b1808eb756E4794438247FBa036fa576F2",
+        "sourceVerified": true
+      },
+      "verified": true
+    },
+    "water-review_register": {
+      "method": "register",
+      "actor": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+      "args": [
+        "water-review",
+        "01646500",
+        "2025-07-01",
+        10000,
+        "0x6b165c45978089a991578b8dfd844cbcd7aab74f"
+      ],
+      "hash": "0xc5948977452e71323cd2a22d859cf1c79108fe2b850ffd036be5988474fe6d9c",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 10000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "AWAITING_DATA",
+        "readings": null,
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": null,
+        "evaluated_by": null,
+        "acknowledged_by": null
+      },
+      "verified": true
+    },
+    "water-review_evaluate": {
+      "method": "evaluate",
+      "actor": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+      "args": [
+        "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review"
+      ],
+      "hash": "0x596c1a1b0c9588fe4318ef41c096af416f7989f9b4d30c4076e943d67eafe058",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 10000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "REVIEW_REQUIRED",
+        "readings": [
+          9360000,
+          11200000,
+          12400000
+        ],
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": null,
+        "evaluated_by": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "acknowledged_by": null
+      },
+      "verified": true
+    },
+    "unauthorized_acknowledge": {
+      "method": "acknowledge",
+      "actor": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+      "args": [
+        "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "Unauthorized review attempt"
+      ],
+      "hash": "0xdb415bffdc4e6f98bfa3667022c733d296dc9ab876cff37d88306a0be6788943",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "reason": "INDEPENDENT_REVIEW_NOTE_REQUIRED",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 10000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "REVIEW_REQUIRED",
+        "readings": [
+          9360000,
+          11200000,
+          12400000
+        ],
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": null,
+        "evaluated_by": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "acknowledged_by": null
+      },
+      "verified": true
+    },
+    "water-review_acknowledge": {
+      "method": "acknowledge",
+      "actor": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+      "args": [
+        "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "Reviewed the two consecutive approved discharge observations."
+      ],
+      "hash": "0x5a53392e3811566bc7bf1384d9142ddcc7c9151bf860da16240c931ccf3be946",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 10000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "ACKNOWLEDGED",
+        "readings": [
+          9360000,
+          11200000,
+          12400000
+        ],
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": "Reviewed the two consecutive approved discharge observations.",
+        "evaluated_by": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "acknowledged_by": "0x6b165c45978089a991578b8dfd844cbcd7aab74f"
+      },
+      "verified": true
+    },
+    "higher-threshold_register": {
+      "method": "register",
+      "actor": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+      "args": [
+        "higher-threshold",
+        "01646500",
+        "2025-07-01",
+        12000,
+        "0x6b165c45978089a991578b8dfd844cbcd7aab74f"
+      ],
+      "hash": "0x6f582ec14dbbd4d895945d3baa007f713b1055bceb4e591ae7719ca303fcb63c",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/higher-threshold",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 12000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "AWAITING_DATA",
+        "readings": null,
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": null,
+        "evaluated_by": null,
+        "acknowledged_by": null
+      },
+      "verified": true
+    },
+    "higher-threshold_evaluate": {
+      "method": "evaluate",
+      "actor": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+      "args": [
+        "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/higher-threshold"
+      ],
+      "hash": "0xd634fec3fe8f0a336d26e58f39c9fd3a16694c76c93c1d78001b650f21f5a26d",
+      "status": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "readback": {
+        "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/higher-threshold",
+        "owner": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c",
+        "station": "01646500",
+        "days": [
+          "2025-07-01",
+          "2025-07-02",
+          "2025-07-03"
+        ],
+        "threshold": 12000,
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&statistic_id=00003&datetime=2025-07-01%2F2025-07-03&limit=20",
+        "status": "RULE_NOT_MET",
+        "readings": [
+          9360000,
+          11200000,
+          12400000
+        ],
+        "reviewer": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "note": null,
+        "evaluated_by": "0x6b165c45978089a991578b8dfd844cbcd7aab74f",
+        "acknowledged_by": null
+      },
+      "verified": true
+    }
+  },
+  "address": "0xB9C420b1808eb756E4794438247FBa036fa576F2",
+  "windows": [
+    {
+      "address": "0xB9C420b1808eb756E4794438247FBa036fa576F2",
+      "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/water-review",
+      "steps": {
+        "register": {
+          "hash": "0xc5948977452e71323cd2a22d859cf1c79108fe2b850ffd036be5988474fe6d9c"
+        },
+        "evaluate": {
+          "hash": "0x596c1a1b0c9588fe4318ef41c096af416f7989f9b4d30c4076e943d67eafe058"
+        },
+        "acknowledge": {
+          "hash": "0x5a53392e3811566bc7bf1384d9142ddcc7c9151bf860da16240c931ccf3be946"
+        }
+      }
+    },
+    {
+      "address": "0xB9C420b1808eb756E4794438247FBa036fa576F2",
+      "key": "0xc872321f536ee7a68c5a5aee0d2c6b17ae9ff99c/higher-threshold",
+      "steps": {
+        "register": {
+          "hash": "0x6f582ec14dbbd4d895945d3baa007f713b1055bceb4e591ae7719ca303fcb63c"
+        },
+        "evaluate": {
+          "hash": "0xd634fec3fe8f0a336d26e58f39c9fd3a16694c76c93c1d78001b650f21f5a26d"
+        }
+      }
+    }
+  ]
+}

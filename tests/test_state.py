@@ -79,3 +79,36 @@ class ContractTest(TestCase):
     def test_duplicate_registration_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "WINDOW_EXISTS"):
             self.contract.register("test-window", "01646500", "2025-07-01", 10000, REVIEWER)
+
+    def test_actor_attribution_and_repeat_rejection(self):
+        evaluator = "0x" + "3"*40
+        self.message.sender_address = evaluator
+        self.contract.evaluate(self.key)
+        self.message.sender_address = REVIEWER
+        self.contract.acknowledge(self.key, "Review completed")
+        record = json.loads(self.contract.get_window(self.key))
+        self.assertEqual((record["owner"],record["evaluated_by"],record["acknowledged_by"]), (OWNER,evaluator,REVIEWER))
+        with self.assertRaisesRegex(ValueError,"NO_REVIEW_REQUIRED"):
+            self.contract.acknowledge(self.key,"Replacement note")
+        self.assertEqual(json.loads(self.contract.get_window(self.key)),record)
+
+    def test_no_review_branch_rejects_acknowledgement(self):
+        key = OWNER + "/higher-threshold"
+        self.contract.register("higher-threshold","01646500","2025-07-01",12000,REVIEWER)
+        self.contract.evaluate(key)
+        self.message.sender_address = REVIEWER
+        with self.assertRaisesRegex(ValueError,"NO_REVIEW_REQUIRED"):
+            self.contract.acknowledge(key,"Review completed")
+        self.assertEqual(json.loads(self.contract.get_window(key))["status"],"RULE_NOT_MET")
+
+    def test_disagreement_preserves_pending_window(self):
+        original = self.host.gl.nondet.web.get
+        def diverge(url):
+            if self.fetches:
+                self.payload["features"][0]["properties"]["value"] = "9370"
+            return original(url)
+        self.host.gl.nondet.web.get = diverge
+        before = self.contract.get_window(self.key)
+        with self.assertRaisesRegex(ValueError,"VALIDATORS_DISAGREE"):
+            self.contract.evaluate(self.key)
+        self.assertEqual(self.contract.get_window(self.key),before)

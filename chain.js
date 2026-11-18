@@ -21,7 +21,7 @@ export async function checkNetwork(client = reader) {
   }
 }
 
-export async function waitFinalized(hash, update = () => {}) {
+export async function waitFinalized(hash, update = () => {}, {allowExecutionError=false} = {}) {
   for (let attempt = 0; attempt < 120; attempt++) {
     let tx
     try {
@@ -34,13 +34,17 @@ export async function waitFinalized(hash, update = () => {}) {
       if ([7, 'FINALIZED'].includes(tx.status)) {
         const receipts = [tx.consensus_data?.leader_receipt].flat()
         const leader = receipts.find(item => item?.mode === 'leader') ?? receipts[0]
-        if (![6, 'MAJORITY_AGREE'].includes(tx.result) || leader?.execution_result !== 'SUCCESS') {
-          throw Error('Finalized without successful consensus execution.')
+        if (![6, 'MAJORITY_AGREE'].includes(tx.result) || !leader) {
+          throw Error('FINALIZED · Consensus result: ' + (tx.result_name ?? tx.result))
+        }
+        if (leader.execution_result !== 'SUCCESS' && !allowExecutionError) {
+          const reason = leader.result?.payload
+          throw Error('FINALIZED / ' + leader.execution_result + (typeof reason === 'string' ? ' · ' + reason : ''))
         }
         return tx
       }
-      if ([8, 'CANCELED', 'UNDETERMINED', 'LEADER_TIMEOUT', 'VALIDATORS_TIMEOUT'].includes(tx.status)) {
-        throw Error('Consensus stopped: ' + tx.status)
+      if (tx.status === 8 || ['CANCELED', 'UNDETERMINED', 'LEADER_TIMEOUT', 'VALIDATORS_TIMEOUT'].includes(tx.statusName ?? tx.status)) {
+        throw Error('Consensus stopped: ' + (tx.statusName ?? tx.status))
       }
     }
     await delay(3500)
