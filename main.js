@@ -2,6 +2,7 @@ import './style.css'
 import { createClient } from 'genlayer-js'
 import { chain, rpc, explorer, checkNetwork, readWindow, waitFinalized } from './chain.js'
 import source from './contracts/riverwindow.py?raw'
+import deployment from './deployment.json'
 
 const get = id => document.getElementById(id)
 const wallets = new Map()
@@ -195,5 +196,6 @@ bind('deploy', async () => {
 })
 
 const params = new URLSearchParams(location.search)
+get("contract").value = deployment.address
 if (addressPattern.test(params.get('contract') ?? '')) get('contract').value = params.get('contract')
 if (keyPattern.test(params.get('key') ?? '')) get('key').value = params.get('key')

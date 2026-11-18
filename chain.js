@@ -30,7 +30,7 @@ export async function waitFinalized(hash, update = () => {}) {
       update('Receipt unavailable · retrying')
     }
     if (tx) {
-      update(String(tx.status))
+      update(tx.statusName ?? String(tx.status))
       if ([7, 'FINALIZED'].includes(tx.status)) {
         const receipts = [tx.consensus_data?.leader_receipt].flat()
         const leader = receipts.find(item => item?.mode === 'leader') ?? receipts[0]

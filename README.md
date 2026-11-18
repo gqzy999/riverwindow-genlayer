@@ -1,5 +1,7 @@
 # RiverWindow
 
+[Open RiverWindow](https://gqzy999.github.io/riverwindow-genlayer/) · [Stable Studionet contract](https://explorer-studio.genlayer.com/address/0x27eBB0834f1c645BB3a1333B09602405d1d54389) · [Chain evidence](evidence/studionet.json)
+
 RiverWindow gives field sampling teams a shared way to apply a preselected discharge rule. The window owner fixes the gauge, three consecutive dates, threshold and reviewer wallet. GenLayer validators independently fetch approved USGS daily mean discharge and compare the entire date-ordered vector. If two consecutive readings meet or exceed the threshold, the assigned reviewer can record an acknowledgement.
 
 ## Run
@@ -35,3 +37,7 @@ After wallet approval the browser displays the submitted hash, waits for FINALIZ
 For scripted deployment, supply an authorized test signer in the environment as `RIVERWINDOW_STUDIO_KEY` and run `npm run deploy`. The script prints the transaction hash before polling, checks deployment success and compares chain code with source. To resume an existing hash without submitting again, use `npm run deploy -- 0x…`.
 
 For a reproducible data window, use USGS 01646500 starting 2025-07-01 and a 10,000 ft³/s threshold. USGS returned approved daily mean values of 9,360, 11,200, and 12,400 ft³/s for these dates. Validate against the linked source when running the transaction because upstream data can be revised.
+
+## Finalized example
+
+The [published USGS review window](https://gqzy999.github.io/riverwindow-genlayer/?key=0xdb29f70fb341141be79ea93c24ee3e8298706852%2Fusgs-july-2025) can be opened without a wallet. Select **Read finalized state** to load the three observations and the reviewer note. The [acceptance record](evidence/studionet.json) contains deployment and transaction hashes plus the state read after each finalized write. Two dedicated Studionet test accounts signed the flow.
