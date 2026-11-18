@@ -43,3 +43,11 @@ summary{cursor:pointer}
 footer{padding:1rem 0}
 [hidden]{display:none!important}
 @media(max-width:740px){.grid{grid-template-columns:1fr}.motif{opacity:.25}.bar small{font-size:.61rem}}
+
+.comparison{margin-top:1.25rem;padding:clamp(1rem,3vw,2rem);border:1px solid var(--line);border-radius:1rem;background:#fafcf8}
+.comparison p{color:#4e6459}.comparison .row{flex-wrap:wrap}.comparison .row label{min-width:min(100%,230px)}
+.compare-scroll{overflow:auto;margin-top:1rem}
+.comparison table{border-collapse:collapse;width:100%;min-width:570px;text-align:left}
+.comparison td,.comparison th{padding:.6rem .75rem;border-bottom:1px solid var(--line)}
+.comparison thead th{background:#e0eadf}
+.progress{display:grid;gap:.3rem;padding-left:1.35rem;font-size:.88rem;color:#375949}

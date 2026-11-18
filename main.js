@@ -3,12 +3,16 @@ import { createClient } from 'genlayer-js'
 import { chain, rpc, explorer, checkNetwork, readWindow, waitFinalized } from './chain.js'
 import source from './contracts/riverwindow.py?raw'
 import deployment from './deployment.json'
+import example from './evidence/studionet.json'
+import higher from './evidence/comparison.json'
+import { runs, registrationTiming } from './review.js'
 
 const get = id => document.getElementById(id)
 const wallets = new Map()
 let provider
 let account
 let busy = false
+let currentRecord
 const status = text => { get('status').textContent = text }
 const addressPattern = /^0x[0-9a-f]{40}$/i
 const keyPattern = /^0x[0-9a-f]{40}\/[a-z0-9-]{3,40}$/
@@ -121,6 +125,10 @@ function key() {
 }
 
 function show(record) {
+  currentRecord = record
+  get('timing-result').textContent = ''
+  const known = [example,higher].find(item => item.key === record?.key)
+  get('registration-hash').value = known?.steps.register.hash ?? ''
   get('record').hidden = !record
   get('actions').hidden = !record || !['AWAITING_DATA','REVIEW_REQUIRED'].includes(record.status)
   if (!record) return
@@ -140,6 +148,16 @@ function show(record) {
     statistic_id:'00003', datetime:record.days[0] + '/' + record.days[2], limit:'20',
   })
   get('review').textContent = record.note ? record.note + ' · ' + record.reviewer : 'Assigned reviewer · ' + record.reviewer
+  const milestones = [
+    'Rule registered',
+    record.readings ? 'USGS observations evaluated' : 'Awaiting approved USGS observations',
+    {ACKNOWLEDGED:'Reviewer acknowledged', REVIEW_REQUIRED:'Awaiting reviewer', RULE_NOT_MET:'Rule not met'}[record.status] ?? 'Review decision pending',
+  ]
+  get('progress').replaceChildren(...milestones.map(text => {
+    const item=document.createElement('li')
+    item.textContent=text
+    return item
+  }))
   get('ack').hidden = record.status !== 'REVIEW_REQUIRED'
   get('evaluate').hidden = record.status !== 'AWAITING_DATA'
 }
@@ -160,6 +178,7 @@ async function write(functionName, args, reference, expected) {
   await track(hash)
   const record = await readWindow(address, reference)
   show(record)
+  if (record && functionName === 'register') get('registration-hash').value = hash
   if (!record || !expected.includes(record.status)) throw Error('Transaction succeeded, but finalized readback did not match the expected state.')
   status('FINALIZED / SUCCESS · Read back ' + record.status)
 }
@@ -168,6 +187,61 @@ bind('lookup', async () => {
   const record = await readWindow(contract(), key())
   show(record)
   status(record ? 'Finalized record loaded' : 'No finalized record for this reference')
+})
+bind('example',async () => {
+  get('contract').value=deployment.address
+  get('key').value=example.key
+  const record=await readWindow(deployment.address,example.key)
+  show(record)
+  status(record ? 'Finalized example loaded' : 'Example unavailable')
+})
+bind('timing',async () => {
+  if (!currentRecord) throw Error('Load a finalized window.')
+  const result=await registrationTiming(contract(),currentRecord,get('registration-hash').value.trim())
+  get('timing-result').textContent='Studionet recorded submission at '+result.submitted+
+    (result.early ? ' · Before the conservative UTC start cutoff.' : ' · On or after the UTC start cutoff. This record does not establish pre-registration.')
+  status('Registration transaction verified')
+})
+async function compareWindows() {
+  const refs=['compare-first','compare-second'].map(id=>get(id).value.trim().toLowerCase())
+  if (refs.some(ref=>!keyPattern.test(ref)) || refs[0]===refs[1]) throw Error('Enter two distinct window references.')
+  const address=contract()
+  get('comparison-table').hidden=true
+  const records=await Promise.all(refs.map(ref=>readWindow(address,ref)))
+  if (records.some(record=>!record)) throw Error('Both windows must exist on the selected contract.')
+  get('compare-a').textContent=refs[0].split('/')[1]
+  get('compare-b').textContent=refs[1].split('/')[1]
+  const rows=[
+    ['USGS gauge',record=>record.station],
+    ['Observation dates',record=>record.days[0]+' → '+record.days.at(-1)],
+    ['Threshold',record=>record.threshold.toLocaleString()+' ft³/s'],
+    ['Approved daily means',record=>record.readings?.map(value=>(value/1000).toLocaleString()).join(' · ') ?? 'Awaiting data'],
+    ['Consecutive qualifying dates',record=>runs(record).join(' · ') || (record.readings ? 'None' : 'Awaiting data')],
+    ['Finalized state',record=>record.status.replaceAll('_',' ')],
+    ['Reviewer note',record=>record.note || '—'],
+  ]
+  get('compare-rows').replaceChildren(...rows.map(([label,describe])=>{
+    const row=document.createElement('tr')
+    const heading=document.createElement('th')
+    heading.scope='row'
+    heading.textContent=label
+    row.append(heading)
+    for(const record of records){
+      const cell=document.createElement('td')
+      cell.textContent=describe(record)
+      row.append(cell)
+    }
+    return row
+  }))
+  get('comparison-table').hidden=false
+  status('Two finalized windows loaded')
+}
+bind('compare',compareWindows)
+bind('compare-example',async () => {
+  get('contract').value=deployment.address
+  get('compare-first').value=example.key
+  get('compare-second').value=higher.key
+  await compareWindows()
 })
 bind('register', async () => {
   if (!account) throw Error('Connect a wallet first.')

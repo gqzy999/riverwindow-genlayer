@@ -11,7 +11,7 @@
   <main>
     <section class="hero">
       <div class="hero-text"><p class="kicker">HYDROLOGY FIELD PLANNING</p><h1>One rule.<br>Shared evidence.</h1>
-      <p>Agree on a discharge threshold before reviewing a sampling window. GenLayer validators independently read USGS records and preserve the values that triggered a second review.</p></div>
+      <p>Record a discharge threshold and assign a reviewer for a sampling window. GenLayer validators independently read USGS records and preserve the values that triggered a second review.</p></div>
       <div class="motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     </section>
     <section class="grid" aria-label="Review workspace">
@@ -29,11 +29,28 @@
         <details><summary>Deploy an instance</summary><p>Deploy the bundled contract using the connected wallet on Stable Studionet.</p><button id="deploy">Deploy contract</button></details>
       </article>
       <article><p class="kicker">02 / FINALIZED RECORD</p><h2>Review a window</h2>
-        <form id="lookup"><label>Window reference<input id="key" required placeholder="0x…/july-sampling"></label><button class="secondary">Read finalized state</button></form>
-        <section id="record" hidden><h3 id="state"></h3><p id="rule"></p><div id="values" class="values"></div><a id="source" target="_blank" rel="noopener">USGS source ↗</a><p id="review"></p></section>
+        <form id="lookup"><label>Window reference<input id="key" required placeholder="0x…/july-sampling"></label><button class="secondary">Read finalized state</button><button type="button" class="secondary" id="example">Open finalized example</button></form>
+        <section id="record" hidden><h3 id="state"></h3><p id="rule"></p><div id="values" class="values"></div><a id="source" target="_blank" rel="noopener">USGS source ↗</a><p id="review"></p><ol id="progress" class="progress" aria-label="Review progress"></ol>
+        <details><summary>Check registration timing</summary>
+          <p class="subtle">Verify when Studionet first recorded the registration. This uses the transaction submission time.</p>
+          <form id="timing"><label>Registration transaction hash<input id="registration-hash" required placeholder="0x…"></label><button class="secondary">Check transaction</button></form>
+          <p id="timing-result" class="subtle" role="status"></p>
+        </details></section>
         <div id="actions" hidden><button id="evaluate">Evaluate USGS records</button>
         <form id="ack" hidden><label>Second reviewer note<textarea id="note" required minlength="10" maxlength="300"></textarea></label><button>Acknowledge review</button></form></div>
       </article>
+    </section>
+    <section class="comparison" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">Compare finalized windows</h2>
+      <p>Compare the threshold, consecutive days and review outcome for two records from this contract.</p>
+      <form id="compare">
+        <div class="row"><label>First window reference<input id="compare-first" required placeholder="0x…/window-name"></label><label>Second window reference<input id="compare-second" required placeholder="0x…/window-name"></label></div>
+        <div class="row"><button>Compare windows</button><button type="button" class="secondary" id="compare-example">Compare published examples</button></div>
+      </form>
+      <div class="compare-scroll" hidden id="comparison-table"><table>
+        <thead><tr><th scope="col">Evidence</th><th scope="col" id="compare-a">First window</th><th scope="col" id="compare-b">Second window</th></tr></thead>
+        <tbody id="compare-rows"></tbody>
+      </table></div>
     </section>
     <div class="activity" role="status" aria-live="polite"><span id="status">Ready</span> <a id="transaction" target="_blank" rel="noopener" hidden>View transaction ↗</a></div>
     <footer>Daily mean discharge · Approved USGS observations only · For planning review</footer>

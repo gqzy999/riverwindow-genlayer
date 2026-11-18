@@ -43,3 +43,9 @@ For a reproducible data window, use USGS 01646500 starting 2025-07-01 and a 10,0
 The [published USGS review window](https://gqzy999.github.io/riverwindow-genlayer/?key=0xdb29f70fb341141be79ea93c24ee3e8298706852%2Fusgs-july-2025) can be opened without a wallet. Select **Read finalized state** to load the three observations and the reviewer note. The [acceptance record](evidence/studionet.json) contains deployment and transaction hashes plus the state read after each finalized write. Two dedicated Studionet test accounts signed the flow.
 
 The [front-end transaction record](evidence/frontend.json) captures a separate production-bundle run through EIP-1193 discovery, network selection, signing, finality polling, and readback. The DOM runner uses two test signers and real Studionet transactions. A native extension signing run could not start in the test environment. The published site was checked in Chrome for unauthenticated finalized readback.
+
+## Compare two review windows
+
+Choose **Compare published examples** to see the same three approved USGS daily means under two registered thresholds. The 10,000 ft³/s rule triggered a review and was acknowledged. The 12,000 ft³/s rule was met on one day, so it did not trigger review. Both columns read the deployed contract's latest finalized state. [Second-window evidence](evidence/comparison.json)
+
+Open a window and use **Check registration timing** to verify a registration transaction hash. The app checks successful finality, the sender, the contract and all registered values. It compares the RPC submission timestamp with midnight UTC at the start of the first observation date, a conservative cutoff for the supported gauges in the eastern United States. The timestamp describes submission. Registration timing is informational and retrospective windows remain valid. Both comparison examples are retrospective.
