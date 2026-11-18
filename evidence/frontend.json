@@ -1,0 +1,29 @@
+{
+  "chainId": 61999,
+  "address": "0x27eBB0834f1c645BB3a1333B09602405d1d54389",
+  "key": "0xdb29f70fb341141be79ea93c24ee3e8298706852/interface-july-2025",
+  "surface": "Production bundle, DOM integration runner, EIP-1193 test adapter signing and submitting real transactions",
+  "steps": {
+    "register": {
+      "role": "owner",
+      "hash": "0x8066dcc3731362bdfc9e70b02e51c54e1f4aef8977bc7c5acf0a71f991d29e04",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "AWAITING_DATA"
+    },
+    "evaluate": {
+      "role": "owner",
+      "hash": "0x336b7fb6f47d80bf0058ced47ca4c8779f85eef5980815535239752272ae756c",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "REVIEW_REQUIRED"
+    },
+    "acknowledge": {
+      "role": "reviewer",
+      "hash": "0x5238792492f0253ec9589a9904c7f4f02bcd3c183c12e3175a6f51407a3f95a4",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "readback": "ACKNOWLEDGED"
+    }
+  }
+}

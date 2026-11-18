@@ -41,3 +41,5 @@ For a reproducible data window, use USGS 01646500 starting 2025-07-01 and a 10,0
 ## Finalized example
 
 The [published USGS review window](https://gqzy999.github.io/riverwindow-genlayer/?key=0xdb29f70fb341141be79ea93c24ee3e8298706852%2Fusgs-july-2025) can be opened without a wallet. Select **Read finalized state** to load the three observations and the reviewer note. The [acceptance record](evidence/studionet.json) contains deployment and transaction hashes plus the state read after each finalized write. Two dedicated Studionet test accounts signed the flow.
+
+The [front-end transaction record](evidence/frontend.json) captures a separate production-bundle run through EIP-1193 discovery, network selection, signing, finality polling, and readback. The DOM runner uses two test signers and real Studionet transactions. A native extension signing run could not start in the test environment. The published site was checked in Chrome for unauthenticated finalized readback.
