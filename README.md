@@ -1,6 +1,6 @@
 # RiverWindow
 
-[Open RiverWindow](https://gqzy999.github.io/riverwindow-genlayer/) · [Stable Studionet contract](https://explorer-studio.genlayer.com/address/0x27eBB0834f1c645BB3a1333B09602405d1d54389) · [Chain evidence](evidence/studionet.json)
+[Open RiverWindow](https://gqzy999.github.io/riverwindow-genlayer/) · [Current Stable Studionet v2 contract](https://explorer-studio.genlayer.com/address/0xB9C420b1808eb756E4794438247FBa036fa576F2) · [V2 chain evidence](evidence/v2.json)
 
 RiverWindow gives field sampling teams a shared way to apply a preselected discharge rule. The window owner fixes the gauge, three consecutive dates, threshold and reviewer wallet. GenLayer validators independently fetch approved USGS daily mean discharge and compare the entire date-ordered vector. If two consecutive readings meet or exceed the threshold, the assigned reviewer can record an acknowledgement.
 
